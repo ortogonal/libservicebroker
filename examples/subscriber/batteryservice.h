@@ -19,7 +19,6 @@ public:
     bool onPropertyChange(std::function<void(const PropertyIdentifier &)> subscriberFunc) override;
 
 protected:
-    void extracted(const PropertyIdentifier &propertyId);
     void handlePropertyValue(const IBatteryService::PropertyIdentifier &propertyId,
                              const sb::Variant &value) override;
 

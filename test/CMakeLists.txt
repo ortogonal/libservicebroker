@@ -5,7 +5,6 @@ find_package(GTest REQUIRED)
 
 set (SUBSCRIBER_TEST_SRC
     tst_subscriber.cpp
-    ../src/subscriber/servicesubscriber.cpp
 )
 
 add_executable(tst_subscriber ${SUBSCRIBER_TEST_SRC})
