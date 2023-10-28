@@ -12,5 +12,6 @@ add_test(NAME tst_subscriber COMMAND tst_subscriber)
 target_include_directories(tst_subscriber
     PRIVATE ../src/subscriber
     PRIVATE ${LIBSERVICEBROKER_HEADERS_DIR}
+    PRIVATE common
 )
 target_link_libraries(tst_subscriber PRIVATE gtest gtest_main pthread)

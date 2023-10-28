@@ -7,11 +7,9 @@
 #include <unordered_map>
 #include <variant>
 
+#include <servicebroker-types.h>
+
 namespace servicebroker {
-
-enum class Type { intType, stringType, floatType, boolType };
-
-using Variant = std::variant<int, std::string, float, bool>;
 
 class IServiceSubscriber;
 class IServiceSubscriberNode;

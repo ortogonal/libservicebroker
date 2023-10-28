@@ -90,10 +90,6 @@ private:
     void signalChange(const std::string channel, const std::string msg);
     void signalThreadWorker();
 
-    std::optional<sb::Variant> stringToBool(const std::string &value) const;
-    std::optional<sb::Variant> stringToInt(const std::string &value) const;
-    std::optional<sb::Variant> stringToFloat(const std::string &value) const;
-
     // TODO: Maybe use a std::map
     std::vector<std::shared_ptr<RedisServiceSubscriberNode>> m_subscriberNodes;
     std::queue<std::pair<std::string, std::string>> m_notificationQueue;

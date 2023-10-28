@@ -3,15 +3,6 @@
 #include <iostream>
 #include <string>
 
-template<class... Ts>
-struct overloaded : Ts...
-{
-    using Ts::operator()...;
-};
-// explicit deduction guide (not needed as of C++20)
-template<class... Ts>
-overloaded(Ts...) -> overloaded<Ts...>;
-
 RedisServicePublisherNode::RedisServicePublisherNode(RedisServicePublisher *creator,
                                                      const std::string &serviceName,
                                                      const int &instance)
@@ -60,15 +51,6 @@ void RedisServicePublisher::publishProperty(const std::string &serviceName,
                                             const std::string_view &property,
                                             const sb::Variant &value)
 {
-    std::string valueString;
-    std::visit(overloaded{
-                   [&valueString](int arg) { valueString = std::to_string(arg); },
-                   [&valueString](std::string arg) { valueString = arg; },
-                   [&valueString](bool arg) { valueString = arg ? "true" : "false"; },
-                   [&valueString](float arg) { valueString = std::to_string(arg); },
-               },
-               value);
-
-    m_redis.hset(serviceName, property, valueString);
+    m_redis.hset(serviceName, property, sb::variantToString(value));
     m_redis.publish(serviceName, property);
 }

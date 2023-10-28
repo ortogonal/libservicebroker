@@ -1,12 +1,10 @@
 #pragma once
 
 #include <memory>
-#include <string>
-#include <variant>
+
+#include <servicebroker-types.h>
 
 namespace servicebroker {
-
-using Variant = std::variant<int, std::string, float, bool>;
 
 class IServicePublisherNode
 {

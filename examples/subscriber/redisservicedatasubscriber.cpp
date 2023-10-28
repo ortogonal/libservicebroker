@@ -172,16 +172,7 @@ std::optional<sb::Variant> RedisServiceDataSubscriber::getPropertyValue(
         auto valueFuture = m_redis.hget(key, propertyName);
         auto value = valueFuture.get();
         if (value.has_value()) {
-            switch (type) {
-            case sb::Type::intType:
-                return stringToInt(value.value());
-            case sb::Type::stringType:
-                return value;
-            case sb::Type::floatType:
-                return stringToFloat(value.value());
-            case sb::Type::boolType:
-                return stringToBool(value.value());
-            };
+            return sb::stringToVariant(type, value.value());
         } else {
             std::cout << "Missing value of property " << propertyName << std::endl;
         }
@@ -236,39 +227,5 @@ void RedisServiceDataSubscriber::signalThreadWorker()
         }
 
         lock.unlock();
-    }
-}
-
-std::optional<sb::Variant> RedisServiceDataSubscriber::stringToBool(const std::string &value) const
-{
-    if (value == "true")
-        return std::make_optional(true);
-    else if (value == "false")
-        return std::make_optional(false);
-    else
-        return std::nullopt;
-}
-
-std::optional<sb::Variant> RedisServiceDataSubscriber::stringToInt(const std::string &value) const
-{
-    std::string::size_type sz;
-    auto iValue = std::stoi(value, &sz);
-
-    if (sz != 0) {
-        return std::make_optional(iValue);
-    } else {
-        return std::nullopt;
-    }
-}
-
-std::optional<sb::Variant> RedisServiceDataSubscriber::stringToFloat(const std::string &value) const
-{
-    std::string::size_type sz;
-    auto fValue = std::stof(value, &sz);
-
-    if (sz != 0) {
-        return std::make_optional(fValue);
-    } else {
-        return std::nullopt;
     }
 }

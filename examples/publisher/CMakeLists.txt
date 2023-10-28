@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
     redisservicepublisher.h redisservicepublisher.cpp
 )
 
+target_include_directories(${PROJECT_NAME} PRIVATE ../common)
 target_include_directories(${PROJECT_NAME} PUBLIC ${HIREDIS_HEADER} ${REDIS_PLUS_PLUS_HEADER})
 target_link_libraries(${PROJECT_NAME}
     PRIVATE ${HIREDIS_LIB}
