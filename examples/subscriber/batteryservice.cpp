@@ -1,8 +1,6 @@
 #include "batteryservice.h"
 
-#include <algorithm>
 #include <array>
-#include <vector>
 
 #include <iostream>
 
