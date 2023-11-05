@@ -1,0 +1,24 @@
+/*
+    TOOD: Add hints about how often you shall read a property or if it's realtime
+          Add action so a another service can call stuff
+          Add limits on a property. For example charge (0-100)
+*/
+
+type Position {
+    float lat
+    float lng
+}
+
+Battery {
+    const int id
+    bool charging
+    bool present
+    int charge
+    int temperature
+}
+
+Position {
+    const int id
+//    Position pos
+    string source
+}

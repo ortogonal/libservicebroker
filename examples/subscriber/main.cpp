@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "batteryservice.h"
+#include <batteryservice_subscriber.h>
 #include "redisservicedatasubscriber.h"
 
 using namespace sw::redis;
@@ -11,8 +11,8 @@ int main()
     cout << "Hello World!" << endl;
 
     RedisServiceDataSubscriber subscriber;
-    BatteryService batteryService1(subscriber, 0);
-    BatteryService batteryService2(subscriber, 1);
+    BatteryService batteryService1(0, subscriber);
+    BatteryService batteryService2(1, subscriber);
 
     batteryService1.onPropertyChange(
         [&batteryService1](const IBatteryService::PropertyIdentifier &propId) {

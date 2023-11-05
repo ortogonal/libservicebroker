@@ -11,19 +11,28 @@ find_library(HIREDIS_LIB hiredis)
 find_path(REDIS_PLUS_PLUS_HEADER sw)
 find_library(REDIS_PLUS_PLUS_LIB redis++)
 
+find_package(ServiceParser REQUIRED)
+serviceparser_target(Service ../common/services.example.dsls)
+
 add_executable(${PROJECT_NAME}
     main.cpp
-    batteryservice.h batteryservice.cpp
+    ${SERVICEPARSER_Service_OUTPUTS}
     redisservicedatasubscriber.h redisservicedatasubscriber.cpp
 )
 
+message("inc dir "  ${SERVICEPARSER_Service_INCLUDE_DIR})
+
 target_include_directories(${PROJECT_NAME} PRIVATE ../common)
-target_include_directories(${PROJECT_NAME} PUBLIC ${HIREDIS_HEADER} ${REDIS_PLUS_PLUS_HEADER})
+target_include_directories(${PROJECT_NAME}
+    PRIVATE ${HIREDIS_HEADER} ${REDIS_PLUS_PLUS_HEADER}
+    PRIVATE ${SERVICEPARSER_Service_INCLUDE_DIR})
+
 target_link_libraries(${PROJECT_NAME}
     PRIVATE ${HIREDIS_LIB}
     PRIVATE ${REDIS_PLUS_PLUS_LIB}
-    PRIVATE servicebroker-subscriber
+    PRIVATE servicebroker-publisher
 )
+
 
 include(GNUInstallDirs)
 install(TARGETS ${PROJECT_NAME}

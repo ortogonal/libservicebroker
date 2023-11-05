@@ -1,7 +1,7 @@
 #include <iostream>
 #include <thread>
 
-#include "batteryservice.h"
+#include <batteryservice_publisher.h>
 #include "redisservicepublisher.h"
 
 int main()
